@@ -1,4 +1,4 @@
-﻿@model BankingApp.Models.Account
+﻿@model IEnumerable<BankingApp.Models.Account>
 
 <!DOCTYPE html>
 <br />
@@ -35,30 +35,33 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => account.Account_Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => account.DateOpened)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => account.Account_Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => account.OwnerFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => account.OwnerLastName)
+                </td>
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Account_Balance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.DateOpened)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Account_Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.OwnerFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.OwnerLastName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-            </td>
-        </tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@account.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@account.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@account.Id">Delete</a>
+                </td>
 
+            </tr>
+        }
     </tbody>
 </table>
 </body>

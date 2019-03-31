@@ -10,7 +10,7 @@ namespace BankingApp.ViewModels
     {
         public int CustomerId { get; set; }
         public int AccountId { get; set; }
-        public List<Customer> Customers { get; set; }
+        public Customer Customer { get; set; }
         public List<Account> Accounts { get; set; }
     }
 }

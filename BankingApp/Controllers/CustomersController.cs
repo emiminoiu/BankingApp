@@ -40,7 +40,7 @@ namespace BankingApp.Controllers
             {
                 return NotFound();
             }
-        
+
             return View(customer);
         }
 
@@ -49,129 +49,118 @@ namespace BankingApp.Controllers
         {
             return View();
         }
-        public  IActionResult CustomerAccounts(int id)
+        public async Task<IActionResult> CustomerAccounts(int id)
         {
+            List<Account> accounts = new List<Account>();
             AccountCustomerViewModel model = new AccountCustomerViewModel();
-            model.Accounts =  _context.accounts.ToList();
-            model.Customers =  _context.customers.ToList();
-            foreach(var customers in model.Customers)
+            model.Accounts = _context.accounts.ToList();
+            model.Customer = await _context.customers.FirstOrDefaultAsync(c => c.Id == id);
+            if (model.Customer.Accounts == null)
             {
-                if(customers.Accounts == null)
-                {
-                    return View("NoAccounts");
-                }
-                foreach(var customerAccounts in customers.Accounts)
-                {
-                    if(customerAccounts.Id == id)
-                    {
-                        var x = customerAccounts;
-                        return View(x);
-                    }
-                }
+                return View("NoAccounts");
             }
-            return NotFound();
 
-
-        }
-        // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,City,State,ZipCode,Email,Sex")] Customer customer)
+            return View(model.Customer.Accounts);
+   }
+    // POST: Customers/Create
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,City,State,ZipCode,Email,Sex")] Customer customer)
+    {
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(customer);
-        }
-
-        // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return View(customer);
-        }
-
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,City,State,ZipCode,Email,Sex")] Customer customer)
-        {
-            if (id != customer.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(customer);
-        }
-
-        // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.customers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
-        }
-
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var customer = await _context.customers.FindAsync(id);
-            _context.customers.Remove(customer);
+            _context.Add(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool CustomerExists(int id)
-        {
-            return _context.customers.Any(e => e.Id == id);
-        }
+        return View(customer);
     }
+
+    // GET: Customers/Edit/5
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var customer = await _context.customers.FindAsync(id);
+        if (customer == null)
+        {
+            return NotFound();
+        }
+        return View(customer);
+    }
+
+    // POST: Customers/Edit/5
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,City,State,ZipCode,Email,Sex")] Customer customer)
+    {
+        if (id != customer.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(customer);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CustomerExists(customer.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(customer);
+    }
+
+    // GET: Customers/Delete/5
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var customer = await _context.customers
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (customer == null)
+        {
+            return NotFound();
+        }
+
+        return View(customer);
+    }
+
+    // POST: Customers/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var customer = await _context.customers.FindAsync(id);
+        _context.customers.Remove(customer);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    private bool CustomerExists(int id)
+    {
+        return _context.customers.Any(e => e.Id == id);
+    }
+}
 }
