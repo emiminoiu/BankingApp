@@ -1,0 +1,40 @@
+﻿@model BankingApp.ViewModels.TransferViewModel
+<br />
+<br />
+<h2 style="color:red">TransferPage</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MakeATransfer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SenderIdAccount" class="control-label"></label>
+                <input asp-for="SenderIdAccount" class="form-control" />
+                <span asp-validation-for="SenderIdAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReceiverIdAccount" class="control-label"></label>
+                <input asp-for="ReceiverIdAccount" class="form-control" />
+                <span asp-validation-for="ReceiverIdAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SenderLastName" class="control-label"></label>
+                <input asp-for="SenderLastName" class="form-control" />
+                <span asp-validation-for="SenderLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SenderFirstName" class="control-label"></label>
+                <input asp-for="SenderFirstName" class="form-control" />
+                <span asp-validation-for="SenderFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Transfer" class="btn btn-primary" />
+            </div>
+        </form>
+        </div>
+</div>

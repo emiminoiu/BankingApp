@@ -1,0 +1,54 @@
+﻿@model BankingApp.Models.Account
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Balance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Account_Balance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOpened)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOpened)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Account_Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerFirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OwnerFirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerLastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OwnerLastName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

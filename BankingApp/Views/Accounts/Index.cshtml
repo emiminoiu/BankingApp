@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BankingApp.Models.Account>
+
+
+
+<!DOCTYPE html>
+<br />
+<br />
+<br />
+<br />
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create"><button type="button" class="btn btn-primary">Create New</button></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Account_Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOpened)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account_Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerLastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account_Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOpened)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account_Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerLastName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

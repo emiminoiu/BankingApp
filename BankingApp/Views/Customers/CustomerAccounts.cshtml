@@ -1,0 +1,65 @@
+﻿@model BankingApp.Models.Account
+
+<!DOCTYPE html>
+<br />
+<br />
+<br />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CustomerAccounts</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Account_Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOpened)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account_Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerLastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Account_Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.DateOpened)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Account_Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.OwnerFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.OwnerLastName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+</body>
+</html>
