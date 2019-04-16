@@ -1,7 +1,7 @@
 ﻿@model BankingApp.ViewModels.TransferViewModel
 <br />
 <br />
-<h2 style="color:red">TransferPage</h2>
+<h2 style="color:red">Transfer Page</h2>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="MakeATransfer">
@@ -18,12 +18,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="SenderLastName" class="control-label"></label>
-                <input asp-for="SenderLastName" class="form-control" />
+                @Html.DropDownListFor(x => x.SenderLastName, new SelectList(ViewBag.CustomersLastName, "LastName"), new { @class = "form-control" })
                 <span asp-validation-for="SenderLastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SenderFirstName" class="control-label"></label>
-                <input asp-for="SenderFirstName" class="form-control" />
+                @*<select asp-for="SenderFirstName" asp-items="ViewBag.CustomersFirstName" class="form-control">
+            <option selected="selected" value="">Please select one of the following users</option>
+        </select>*@
+                @Html.DropDownListFor(x => x.SenderFirstName, new SelectList(ViewBag.CustomersFirstName, "FirstName"), new { @class = "form-control" })
                 <span asp-validation-for="SenderFirstName" class="text-danger"></span>
             </div>
             <div class="form-group">

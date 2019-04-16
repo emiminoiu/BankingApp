@@ -40,6 +40,17 @@ namespace BankingApp.Controllers
         public IActionResult GoToTransferPage(string selection)
         {
             TransferViewModel model = new TransferViewModel();
+            List<string> customersFirstNameList = new List<string>();
+            List<string> customersLastNameList = new List<string>();
+            var allCustomers =  _context.customers.ToList();
+            foreach (var customersData in  allCustomers)
+            {
+                customersFirstNameList.Add(customersData.FirstName);
+                customersLastNameList.Add(customersData.LastName);
+            }
+            ViewBag.CustomersFirstName = customersFirstNameList;
+            ViewBag.CustomersLastName = customersLastNameList;
+
             // var user = await _userManager.GetUserAsync(User);
             if (selection == "Transfer")
                 return View("Transfer", model);
@@ -138,6 +149,7 @@ namespace BankingApp.Controllers
         public async Task<IActionResult> MakeATransfer(TransferViewModel transfer)
         {
             Customer customer = new Customer();
+
             customer = await _context.customers.FirstOrDefaultAsync(c => c.FirstName == transfer.SenderFirstName && c.LastName == transfer.SenderLastName);
             if (customer == null)
                 return NotFound();
